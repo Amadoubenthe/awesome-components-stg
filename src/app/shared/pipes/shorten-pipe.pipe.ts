@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'shortenPipe',
+  name: 'shorten',
 })
 export class ShortenPipePipe implements PipeTransform {
   transform(value: string, maxLength: number = 40): string {

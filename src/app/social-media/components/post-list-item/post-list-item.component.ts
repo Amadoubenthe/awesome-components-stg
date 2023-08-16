@@ -13,6 +13,11 @@ export class PostListItemComponent implements OnInit {
     postId: number;
   }>();
 
+  userTmp: { firstName: string; lastName: string } = {
+    firstName: 'Amadou Benthe',
+    lastName: 'Diallo',
+  };
+
   ngOnInit(): void {}
 
   onNewComment(comment: string) {
