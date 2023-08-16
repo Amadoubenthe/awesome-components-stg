@@ -3,15 +3,16 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material/material.module';
 import { CommentsComponent } from './components/comments/comments.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ShortenPipePipe } from './pipes/shorten-pipe.pipe';
 
 @NgModule({
-  imports: [ReactiveFormsModule],
-})
-export class AppModule {}
-
-@NgModule({
-  declarations: [CommentsComponent],
+  declarations: [CommentsComponent, ShortenPipePipe],
   imports: [CommonModule, MaterialModule, ReactiveFormsModule],
-  exports: [MaterialModule, CommentsComponent, ReactiveFormsModule],
+  exports: [
+    MaterialModule,
+    CommentsComponent,
+    ReactiveFormsModule,
+    ShortenPipePipe,
+  ],
 })
 export class SharedModule {}
