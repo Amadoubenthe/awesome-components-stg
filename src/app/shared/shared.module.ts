@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ShortenPipePipe } from './pipes/shorten-pipe.pipe';
 import { UserNamePipePipe } from './pipes/user-name-pipe.pipe';
 import { TimeAgoPipePipe } from './pipes/time-ago-pipe.pipe';
+import { HighlightDirective } from './directives/hightlight.directive';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { TimeAgoPipePipe } from './pipes/time-ago-pipe.pipe';
     ShortenPipePipe,
     UserNamePipePipe,
     TimeAgoPipePipe,
+    HighlightDirective,
   ],
   imports: [CommonModule, MaterialModule, ReactiveFormsModule],
   exports: [
@@ -22,6 +24,7 @@ import { TimeAgoPipePipe } from './pipes/time-ago-pipe.pipe';
     ShortenPipePipe,
     UserNamePipePipe,
     TimeAgoPipePipe,
+    HighlightDirective,
   ],
 })
 export class SharedModule {}

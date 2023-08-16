@@ -1,7 +1,9 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title
-      ><span>{{ post.title | titlecase }}</span></mat-card-title
+      ><span appHightlight color="orange">{{
+        post.title | titlecase
+      }}</span></mat-card-title
     >
     <mat-card-subtitle
       ><span>{{ post.createdDate | timeAgo }}</span></mat-card-subtitle
