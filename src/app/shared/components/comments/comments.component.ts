@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Comment } from 'src/app/social-media/models/post.model';
+import { Comment } from 'src/app/features/social-media/models/post.model';
 
 @Component({
   selector: 'app-comments',
