@@ -27,5 +27,6 @@ export class CommentsComponent implements OnInit {
       return;
     }
     this.newComment.emit(this.commentCtrl.value);
+    this.commentCtrl.reset();
   }
 }
