@@ -9,7 +9,7 @@ import { Comment } from 'src/app/social-media/models/post.model';
 })
 export class CommentsComponent implements OnInit {
   @Input() comments!: Comment[];
-  @Output() comment = new EventEmitter();
+  @Output() newComment = new EventEmitter<string>();
 
   commentCtrl!: FormControl;
 
@@ -26,6 +26,6 @@ export class CommentsComponent implements OnInit {
     if (!this.commentCtrl.valid) {
       return;
     }
-    this.comment.emit(this.commentCtrl.value);
+    this.newComment.emit(this.commentCtrl.value);
   }
 }
