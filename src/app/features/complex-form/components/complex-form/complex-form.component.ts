@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Observable, map, startWith, tap } from 'rxjs';
 
 @Component({
   selector: 'app-complex-form',
@@ -29,11 +30,15 @@ export class ComplexFormComponent {
   passwordCtrl!: FormControl;
   confirmPasswordCtrl!: FormControl;
 
+  showEmailCtrl$!: Observable<boolean>;
+  showPhoneCtrl$!: Observable<boolean>;
+
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.initFormControls();
     this.initMainForm();
+    this.initFormObservable();
   }
 
   initMainForm(): void {
@@ -74,6 +79,52 @@ export class ComplexFormComponent {
       password: this.passwordCtrl,
       confirmPassword: this.confirmPasswordCtrl,
     });
+  }
+
+  initFormObservable() {
+    this.showEmailCtrl$ = this.contactPreferenceCtrl.valueChanges.pipe(
+      startWith(this.contactPreferenceCtrl.value),
+      map((preference) => preference === 'email'),
+      tap((showEmailCtrl) => this.setEmailValidators(showEmailCtrl))
+    );
+
+    this.showPhoneCtrl$ = this.contactPreferenceCtrl.valueChanges.pipe(
+      startWith(this.contactPreferenceCtrl.value),
+      map((preference) => preference === 'phone'),
+      tap((showPhoneCtrl) => this.setPhoneValidators(showPhoneCtrl))
+    );
+  }
+
+  private setEmailValidators(showEmailCtrl: boolean) {
+    if (showEmailCtrl) {
+      // Ajout des validators
+      this.emailCtrl.addValidators([Validators.required, Validators.email]);
+      this.confirmEmailCtrl.addValidators([
+        Validators.required,
+        Validators.email,
+      ]);
+    } else {
+      // Retirer les valdateurs
+      this.emailCtrl.clearValidators();
+      this.confirmEmailCtrl.clearValidators();
+    }
+    this.emailCtrl.updateValueAndValidity();
+    this.confirmEmailCtrl.updateValueAndValidity();
+  }
+
+  private setPhoneValidators(showPhoneCtrl: boolean) {
+    if (showPhoneCtrl) {
+      // Ajout des validators
+      this.phoneCtrl.addValidators([
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+      ]);
+    } else {
+      // Retirer les valdateurs
+      this.phoneCtrl.clearValidators();
+    }
+    this.phoneCtrl.updateValueAndValidity();
   }
 
   onSubmitForm() {
