@@ -1,1 +1,116 @@
-<p>complex-form works!</p>
+<section class="main-content">
+  <mat-card [formGroup]="mainForm" class="main-form">
+    <mat-card-title>Inscription</mat-card-title>
+    <mat-card class="form-card" [formGroup]="personalInfoForm">
+      <mat-card-subtitle>Informationss personnelles</mat-card-subtitle>
+      <div class="form-row">
+        <mat-form-field class="example-full-width">
+          <mat-label>Prénom</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Prénom"
+            formControlName="firstName"
+          />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Nom</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Nom"
+            formControlName="lastName"
+          />
+        </mat-form-field>
+      </div>
+    </mat-card>
+    <mat-card class="form-card">
+      <mat-card-subtitle
+        >Comment préférez-vous que l'on vous contacte ?</mat-card-subtitle
+      >
+      <mat-radio-group
+        aria-label="Select an option"
+        [formControl]="contactPreferenceCtrl"
+      >
+        <mat-radio-button value="email">Mail</mat-radio-button>
+        <mat-radio-button value="phone">Phone</mat-radio-button>
+      </mat-radio-group>
+    </mat-card>
+    <mat-card class="form-card" [formGroup]="emailForm">
+      <mat-card-subtitle>Email</mat-card-subtitle>
+      <div class="form-row">
+        <mat-form-field class="example-full-width">
+          <mat-label>Email</mat-label>
+          <input
+            type="email"
+            matInput
+            placeholder="Adresse email"
+            formControlName="email"
+          />
+          <mat-error>Please enter a valid email address</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Confirm email</mat-label>
+          <input
+            type="email"
+            matInput
+            placeholder="Confirmer votre email"
+            formControlName="confirmEmail"
+          />
+          <mat-error>Please enter a valid email address</mat-error>
+        </mat-form-field>
+      </div>
+    </mat-card>
+    <mat-card class="form-card">
+      <mat-card-subtitle>Téléphone</mat-card-subtitle>
+      <mat-form-field class="example-full-width">
+        <mat-label>Telephone</mat-label>
+        <input
+          type="tel"
+          matInput
+          placeholder="225 05 84 10 87 16"
+          [formControl]="phoneCtrl"
+        />
+      </mat-form-field>
+    </mat-card>
+    <mat-card class="form-card" [formGroup]="loginInfoForm">
+      <mat-card-subtitle>Informations de connexion</mat-card-subtitle>
+      <div class="form-row">
+        <mat-form-field class="example-full-width">
+          <mat-label>First name</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Nom d'utilisateur"
+            formControlName="username"
+          />
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field class="example-full-width">
+          <mat-label>Mot de passe</mat-label>
+          <input
+            type="password"
+            matInput
+            placeholder="Mot de passe"
+            formControlName="password"
+          />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Confirmer votre mot de passe</mat-label>
+          <input
+            type="password"
+            matInput
+            placeholder="Confirm Mot de passe"
+            formControlName="confirmPassword"
+          />
+        </mat-form-field>
+      </div>
+    </mat-card>
+    <mat-card-actions class="btn-container">
+      <button mat-flat-button color="primary" (click)="onSubmitForm()">
+        ENREGISTRER
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</section>
