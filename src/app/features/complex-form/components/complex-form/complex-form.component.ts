@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
 import { Observable, map, startWith, tap } from 'rxjs';
+import { ComplexFormService } from '../../services/complex-form/complex-form.service';
+import { ComplexFormValue } from '../../models/complex-form-value.model';
 
 @Component({
   selector: 'app-complex-form',
@@ -13,6 +16,7 @@ import { Observable, map, startWith, tap } from 'rxjs';
   styleUrls: ['./complex-form.component.scss'],
 })
 export class ComplexFormComponent {
+  loading: boolean = false;
   mainForm!: FormGroup;
 
   personalInfoForm!: FormGroup;
@@ -33,7 +37,10 @@ export class ComplexFormComponent {
   showEmailCtrl$!: Observable<boolean>;
   showPhoneCtrl$!: Observable<boolean>;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private complexFormService: ComplexFormService
+  ) {}
 
   ngOnInit(): void {
     this.initFormControls();
@@ -72,7 +79,7 @@ export class ComplexFormComponent {
 
     this.usernameCtrl = this.fb.control('', Validators.required);
     this.passwordCtrl = this.fb.control('', Validators.required);
-    this.confirmPasswordCtrl = this.fb.control('');
+    this.confirmPasswordCtrl = this.fb.control('', Validators.required);
 
     this.loginInfoForm = this.fb.group({
       username: this.usernameCtrl,
@@ -127,9 +134,46 @@ export class ComplexFormComponent {
     this.phoneCtrl.updateValueAndValidity();
   }
 
+  getFormControlErrorText(ctrl: AbstractControl) {
+    if (ctrl.hasError('required')) {
+      return 'Ce champ est requis';
+    } else if (ctrl.hasError('email')) {
+      return "Merci d'entrer une adresse mail valide";
+    } else if (ctrl.hasError('minlength')) {
+      return 'Ce numéro de téléphone ne contient pas assez de chiffres';
+    } else if (ctrl.hasError('maxlength')) {
+      return 'Ce numéro de téléphone contient trop de chiffres';
+    } else {
+      return 'Ce champ contient une erreur';
+    }
+  }
+
   onSubmitForm() {
     console.log(this.mainForm.value);
 
-    console.log('Submitted...');
+    const user: ComplexFormValue = {
+      ...this.mainForm.value,
+    };
+
+    this.loading = true;
+
+    this.complexFormService
+      .addUserInfo(user)
+      .pipe(
+        tap((saved) => {
+          this.loading = false;
+          if (saved) {
+            this.resetForm();
+          } else {
+            console.error("Erreur d'enregistrement");
+          }
+        })
+      )
+      .subscribe();
+  }
+
+  private resetForm() {
+    this.mainForm.reset();
+    this.contactPreferenceCtrl.patchValue('email');
   }
 }

@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   exports: [
@@ -18,6 +19,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatInputModule,
     MatButtonModule,
     MatRadioModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class MaterialModule {}

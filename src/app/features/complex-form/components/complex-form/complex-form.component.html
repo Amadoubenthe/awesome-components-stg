@@ -12,7 +12,9 @@
             placeholder="Prénom"
             formControlName="firstName"
           />
+          <mat-error>Ce champ est requis</mat-error>
         </mat-form-field>
+
         <mat-form-field class="example-full-width">
           <mat-label>Nom</mat-label>
           <input
@@ -21,6 +23,7 @@
             placeholder="Nom"
             formControlName="lastName"
           />
+          <mat-error>Ce champ est requis</mat-error>
         </mat-form-field>
       </div>
     </mat-card>
@@ -51,7 +54,7 @@
             placeholder="Adresse email"
             formControlName="email"
           />
-          <mat-error>Please enter a valid email address</mat-error>
+          <mat-error>{{ getFormControlErrorText(emailCtrl) }}</mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Confirm email</mat-label>
@@ -61,7 +64,7 @@
             placeholder="Confirmer votre email"
             formControlName="confirmEmail"
           />
-          <mat-error>Please enter a valid email address</mat-error>
+          <mat-error>{{ getFormControlErrorText(confirmEmailCtrl) }}</mat-error>
         </mat-form-field>
       </div>
     </mat-card>
@@ -75,6 +78,7 @@
           placeholder="225 05 84 10 87 16"
           [formControl]="phoneCtrl"
         />
+        <mat-error>{{ getFormControlErrorText(phoneCtrl) }}</mat-error>
       </mat-form-field>
     </mat-card>
     <mat-card class="form-card" [formGroup]="loginInfoForm">
@@ -88,6 +92,7 @@
             placeholder="Nom d'utilisateur"
             formControlName="username"
           />
+          <mat-error>{{ getFormControlErrorText(usernameCtrl) }}</mat-error>
         </mat-form-field>
       </div>
       <div class="form-row">
@@ -99,6 +104,7 @@
             placeholder="Mot de passe"
             formControlName="password"
           />
+          <mat-error>{{ getFormControlErrorText(passwordCtrl) }}</mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Confirmer votre mot de passe</mat-label>
@@ -108,6 +114,9 @@
             placeholder="Confirm Mot de passe"
             formControlName="confirmPassword"
           />
+          <mat-error>{{
+            getFormControlErrorText(confirmPasswordCtrl)
+          }}</mat-error>
         </mat-form-field>
       </div>
     </mat-card>
@@ -116,5 +125,10 @@
         ENREGISTRER
       </button>
     </mat-card-actions>
+    <mat-spinner
+      *ngIf="loading"
+      color="primary"
+      mode="indeterminate"
+    ></mat-spinner>
   </mat-card>
 </section>

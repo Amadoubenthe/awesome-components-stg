@@ -1,19 +1,20 @@
 .main-content {
-  max-width: 700px;
+  max-width: 900px;
   margin: auto;
   padding: 8px;
+  padding-top: 16px;
 }
 
 mat-form-field {
   width: 45%;
   &.full-width {
-    width: 80%;
+    width: 90%;
     margin-left: 10%;
   }
 }
 
 mat-card {
-  padding: 0 8px 0 8px;
+  padding: 0 8px 8px 8px;
 }
 
 .form-row {

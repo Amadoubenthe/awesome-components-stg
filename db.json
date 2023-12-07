@@ -193,6 +193,42 @@
         "confirmPassword": "moihsdgf"
       },
       "id": 4
+    },
+    {
+      "personalInfo": {
+        "firstName": "Amadou Benthe",
+        "lastName": "DIALLO"
+      },
+      "contactPreference": "email",
+      "email": {
+        "email": "amadbenthebagnandiallo@gmail.com",
+        "confirmEmail": "amadbenthebagnandiallo@gmail.com"
+      },
+      "phone": "",
+      "loginInfo": {
+        "username": "amadbenthebagnandiallo@gmail.com",
+        "password": "password",
+        "confirmPassword": "SSSSSSSSSSSSSS"
+      },
+      "id": 5
+    },
+    {
+      "personalInfo": {
+        "firstName": "Amadou Benthe",
+        "lastName": "DIALLO"
+      },
+      "contactPreference": "phone",
+      "email": {
+        "email": "amadbenthebagnandiallo@gmail.com",
+        "confirmEmail": "amadbenthebagnandiallo@gmail.com"
+      },
+      "phone": "0505050505",
+      "loginInfo": {
+        "username": "amadbenthebagnandiallo@gmail.com",
+        "password": "password",
+        "confirmPassword": "QQQQQQQ"
+      },
+      "id": 6
     }
   ],
   "candidates": [
