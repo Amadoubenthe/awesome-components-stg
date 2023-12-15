@@ -9,6 +9,7 @@ import {
 import { Observable, map, startWith, tap } from 'rxjs';
 import { ComplexFormService } from '../../services/complex-form/complex-form.service';
 import { ComplexFormValue } from '../../models/complex-form-value.model';
+import { validValidator } from '../../validators/valid.validator';
 
 @Component({
   selector: 'app-complex-form',
@@ -105,7 +106,11 @@ export class ComplexFormComponent {
   private setEmailValidators(showEmailCtrl: boolean) {
     if (showEmailCtrl) {
       // Ajout des validators
-      this.emailCtrl.addValidators([Validators.required, Validators.email]);
+      this.emailCtrl.addValidators([
+        Validators.required,
+        Validators.email,
+        validValidator(),
+      ]);
       this.confirmEmailCtrl.addValidators([
         Validators.required,
         Validators.email,
@@ -143,6 +148,8 @@ export class ComplexFormComponent {
       return 'Ce numéro de téléphone ne contient pas assez de chiffres';
     } else if (ctrl.hasError('maxlength')) {
       return 'Ce numéro de téléphone contient trop de chiffres';
+    } else if (ctrl.hasError('validValidator')) {
+      return 'Ce champ doit containir le mot VALID';
     } else {
       return 'Ce champ contient une erreur';
     }
