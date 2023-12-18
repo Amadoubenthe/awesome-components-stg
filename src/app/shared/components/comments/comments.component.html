@@ -17,7 +17,7 @@
 
   <mat-list *ngIf="comments.length">
     <h3 matCardSubtitle>Commentaire</h3>
-    <mat-list-item *ngFor="let commnet of comments">
+    <mat-list-item *ngFor="let commnet of comments" @listItem>
       <div>{{ commnet.comment | shorten : 30 }}</div>
       <div>{{ commnet.createdDate | timeAgo }}</div>
     </mat-list-item>
