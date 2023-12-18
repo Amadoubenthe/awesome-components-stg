@@ -7,6 +7,7 @@ import { ShortenPipePipe } from './pipes/shorten-pipe.pipe';
 import { UserNamePipePipe } from './pipes/user-name-pipe.pipe';
 import { TimeAgoPipePipe } from './pipes/time-ago-pipe.pipe';
 import { HighlightDirective } from './directives/hightlight.directive';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { HighlightDirective } from './directives/hightlight.directive';
     TimeAgoPipePipe,
     HighlightDirective,
   ],
-  imports: [CommonModule, MaterialModule, ReactiveFormsModule],
+  imports: [CommonModule, MaterialModule, ReactiveFormsModule, RouterModule],
   exports: [
     MaterialModule,
     CommentsComponent,
@@ -25,6 +26,7 @@ import { HighlightDirective } from './directives/hightlight.directive';
     UserNamePipePipe,
     TimeAgoPipePipe,
     HighlightDirective,
+    RouterModule,
   ],
 })
 export class SharedModule {}
