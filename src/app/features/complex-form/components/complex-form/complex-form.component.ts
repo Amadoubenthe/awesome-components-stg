@@ -9,7 +9,7 @@ import {
 import { Observable, map, startWith, tap } from 'rxjs';
 import { ComplexFormService } from '../../services/complex-form/complex-form.service';
 import { ComplexFormValue } from '../../models/complex-form-value.model';
-import { validValidator } from '../../validators/valid.validator';
+import { confirmEqualValidator } from '../../validators/confirm-equal-validator';
 
 @Component({
   selector: 'app-complex-form',
@@ -37,6 +37,9 @@ export class ComplexFormComponent {
 
   showEmailCtrl$!: Observable<boolean>;
   showPhoneCtrl$!: Observable<boolean>;
+
+  showEmailConfirmError$!: Observable<boolean>;
+  showPasswordConfirmError$!: Observable<boolean>;
 
   constructor(
     private fb: FormBuilder,
@@ -69,10 +72,16 @@ export class ComplexFormComponent {
 
     this.confirmEmailCtrl = this.fb.control('');
 
-    this.emailForm = this.fb.group({
-      email: this.emailCtrl,
-      confirmEmail: this.confirmEmailCtrl,
-    });
+    this.emailForm = this.fb.group(
+      {
+        email: this.emailCtrl,
+        confirmEmail: this.confirmEmailCtrl,
+      },
+      {
+        validators: [confirmEqualValidator('email', 'confirmEmail')],
+        updateOn: 'blur',
+      }
+    );
 
     this.contactPreferenceCtrl = this.fb.control('email');
 
@@ -82,11 +91,17 @@ export class ComplexFormComponent {
     this.passwordCtrl = this.fb.control('', Validators.required);
     this.confirmPasswordCtrl = this.fb.control('', Validators.required);
 
-    this.loginInfoForm = this.fb.group({
-      username: this.usernameCtrl,
-      password: this.passwordCtrl,
-      confirmPassword: this.confirmPasswordCtrl,
-    });
+    this.loginInfoForm = this.fb.group(
+      {
+        username: this.usernameCtrl,
+        password: this.passwordCtrl,
+        confirmPassword: this.confirmPasswordCtrl,
+      },
+      {
+        validators: [confirmEqualValidator('password', 'confirmPassword')],
+        updateOn: 'blur',
+      }
+    );
   }
 
   initFormObservable() {
@@ -101,16 +116,32 @@ export class ComplexFormComponent {
       map((preference) => preference === 'phone'),
       tap((showPhoneCtrl) => this.setPhoneValidators(showPhoneCtrl))
     );
+
+    this.showEmailConfirmError$ = this.emailForm.statusChanges.pipe(
+      map(
+        (status) =>
+          status === 'INVALID' &&
+          this.emailCtrl.value &&
+          this.confirmEmailCtrl.value &&
+          this.emailForm.hasError('confirmEqual')
+      )
+    );
+
+    this.showPasswordConfirmError$ = this.loginInfoForm.statusChanges.pipe(
+      map(
+        (status) =>
+          status === 'INVALID' &&
+          this.passwordCtrl.value &&
+          this.confirmPasswordCtrl.value &&
+          this.loginInfoForm.hasError('confirmEqual')
+      )
+    );
   }
 
   private setEmailValidators(showEmailCtrl: boolean) {
     if (showEmailCtrl) {
       // Ajout des validators
-      this.emailCtrl.addValidators([
-        Validators.required,
-        Validators.email,
-        validValidator(),
-      ]);
+      this.emailCtrl.addValidators([Validators.required, Validators.email]);
       this.confirmEmailCtrl.addValidators([
         Validators.required,
         Validators.email,
